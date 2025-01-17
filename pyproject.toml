@@ -1,0 +1,12 @@
+[project]
+name = "datarepo-rerun-viewer"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "ipython>=8.31.0",
+    "minio>=7.2.14",
+    "psycopg>=3.2.4",
+    "rerun-sdk==0.21.0",
+]
