@@ -40,6 +40,10 @@ def query_joint_point(video_name: str):
             row = cursor.fetchall()    
             return row
 
+coco_keypoints = {
+
+}
+
 rr.init("rerun_asset_video_auto_frames")
 rr.serve_web(ws_port=4321, web_port=10000)
 
@@ -55,7 +59,6 @@ joint_point_data = query_joint_point(tag)
 
 rr.log("video", video_asset, static=True)
 frame_timestamps_ns = video_asset.read_frame_timestamps_ns()
-print(frame_timestamps_ns)
 rr.send_columns(
     "video",
     # Note timeline values don't have to be the same as the video timestamps.
@@ -67,8 +70,10 @@ for (idx, joint_point) in joint_point_data:
     rr.set_time_nanos('video_time', frame_timestamps_ns[idx])
     joint_position = pickle.loads(joint_point)
     for j in joint_position:
-        rr.log('joint', rr.Points2D(j[:, :2]))
-
+        rr.log('joint/marker2D', rr.Points2D(j[:, :2]))
+        for joint_number in range(0, len(j)):
+            rr.log('joint/joint_' + str(joint_number) + 'x', rr.Scalar(j[joint_number][0]))
+            rr.log('joint/joint_' + str(joint_number) + 'y', rr.Scalar(j[joint_number][1]))
 
 try:
   while True:
