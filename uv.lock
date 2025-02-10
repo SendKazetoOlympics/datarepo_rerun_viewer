@@ -168,6 +168,7 @@ name = "datarepo-rerun-viewer"
 version = "0.1.0"
 source = { virtual = "." }
 dependencies = [
+    { name = "distinctipy" },
     { name = "ipython" },
     { name = "minio" },
     { name = "psycopg" },
@@ -180,12 +181,13 @@ dependencies = [
 
 [package.metadata]
 requires-dist = [
+    { name = "distinctipy", specifier = ">=1.3.4" },
     { name = "ipython", specifier = ">=8.31.0" },
     { name = "minio", specifier = ">=7.2.14" },
     { name = "psycopg", specifier = ">=3.2.4" },
     { name = "python-dotenv", specifier = ">=1.0.1" },
     { name = "requests", specifier = ">=2.32.3" },
-    { name = "rerun-sdk", specifier = "==0.21.0" },
+    { name = "rerun-sdk", specifier = "==0.22.0" },
     { name = "torch", specifier = ">=2.5.1" },
     { name = "uuid", specifier = ">=1.30" },
 ]
@@ -197,6 +199,18 @@ source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/66/0c/8d907af351aa16b42caae42f9d6aa37b900c67308052d10fdce809f8d952/decorator-5.1.1.tar.gz", hash = "sha256:637996211036b6385ef91435e4fae22989472f9d571faba8927ba8253acbc330", size = 35016 }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/d5/50/83c593b07763e1161326b3b8c6686f0f4b0f24d5526546bee538c89837d6/decorator-5.1.1-py3-none-any.whl", hash = "sha256:b8c3f85900b9dc423225913c5aace94729fe1fa9763b38939a95226f02d37186", size = 9073 },
+]
+
+[[package]]
+name = "distinctipy"
+version = "1.3.4"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "numpy" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/8c/3c/e0b90a5bc396e2abaf207d9a41ea8aeab1f41760425262474903bade6a7b/distinctipy-1.3.4.tar.gz", hash = "sha256:fed97afff1afb73ecaa87c85461021f0ba89fae63067c0125b9673526510aac4", size = 29711 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/0a/75/fa882538bdb0c8fc4459f1595a761591b827691936d57c08c492676f19bc/distinctipy-1.3.4-py3-none-any.whl", hash = "sha256:2bf57d9d20dbc5c2fd462298573cc963c037f493d04ec61e94cb8d0bf5023c74", size = 26743 },
 ]
 
 [[package]]
@@ -754,7 +768,7 @@ wheels = [
 
 [[package]]
 name = "rerun-sdk"
-version = "0.21.0"
+version = "0.22.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "attrs" },
@@ -764,11 +778,11 @@ dependencies = [
     { name = "typing-extensions" },
 ]
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/1a/7b/2dda703d2d234e8bf73edc11c099bc14c04b6bad6f748b76ad0525925dd9/rerun_sdk-0.21.0-cp38-abi3-macosx_10_12_x86_64.whl", hash = "sha256:1e454ceea31c70ae9ec1bb26eaa82828661b7657ab4d2261ca0b94006d6a1975", size = 43464114 },
-    { url = "https://files.pythonhosted.org/packages/c7/11/de8d1d375624edc7dae25a9d76b769cddb9090ca55b8fd7ce5f93b975cf5/rerun_sdk-0.21.0-cp38-abi3-macosx_11_0_arm64.whl", hash = "sha256:84ecb77b0b5bac71b53e849801ff073de89fcd2f1e0ca0da62fb18fcbeceadf0", size = 41643016 },
-    { url = "https://files.pythonhosted.org/packages/53/49/aefaa4f0e2ee685858aedaee2cc6cc4df8330055bdfbe88c6905e62d693d/rerun_sdk-0.21.0-cp38-abi3-manylinux_2_31_aarch64.whl", hash = "sha256:919d921165c3238490dbe5bf00a062c68fdd2c54dc14aac6a1914c82edb5d9c8", size = 46355630 },
-    { url = "https://files.pythonhosted.org/packages/10/63/405a1b601cf1253878b1aebef6764095b2e8139cf233a908c2ccc4ad4ffd/rerun_sdk-0.21.0-cp38-abi3-manylinux_2_31_x86_64.whl", hash = "sha256:897649aadcab7014b78096f93c84c61c00a227b80adaf0dec279924b5aab53d8", size = 47790175 },
-    { url = "https://files.pythonhosted.org/packages/87/5e/c7cf6379a7a42748f5961ec41faf0e38635c6e6d5cd95b63a2691f0b34dc/rerun_sdk-0.21.0-cp38-abi3-win_amd64.whl", hash = "sha256:2060bdb536a198f0f04789ba5ba771e66587e7851d668b3dfab257a5efa16819", size = 39216574 },
+    { url = "https://files.pythonhosted.org/packages/f0/a5/e633716493189f38caae680280343a05e0d28529a5a5cd3349d3ab58fc5f/rerun_sdk-0.22.0-cp38-abi3-macosx_10_12_x86_64.whl", hash = "sha256:2ccdeb7beb236d7a4214b742bc308c291eca9488bcaa11d59cd3ddebab578fbf", size = 46782161 },
+    { url = "https://files.pythonhosted.org/packages/20/da/ad5ff8beb000824eb47d0d0722570e1a82056b7d5da724c65da3995e3dac/rerun_sdk-0.22.0-cp38-abi3-macosx_11_0_arm64.whl", hash = "sha256:50224ae88db978aae4583f238e4a438d7a06c7e6e4d42b28d5af378cf377b290", size = 44524346 },
+    { url = "https://files.pythonhosted.org/packages/79/6e/cb2b6d1fa4f524a880e267847937237084b810f0125c71a8d87eaf50e3c2/rerun_sdk-0.22.0-cp38-abi3-manylinux_2_31_aarch64.whl", hash = "sha256:2c8f8cc2178ba77eafa6a66ccea2b732f555f210d0cfba3be21194fd6af474a7", size = 49761436 },
+    { url = "https://files.pythonhosted.org/packages/24/aa/a80c3205b047b789f63858d768d278607a1e19e8a9d78adc8904814d7a87/rerun_sdk-0.22.0-cp38-abi3-manylinux_2_31_x86_64.whl", hash = "sha256:e954fc1ade1ff74670904bb72c5d974983efb213943c7cb8fbb530fea8fa8080", size = 51352822 },
+    { url = "https://files.pythonhosted.org/packages/ac/9b/77d6411e1c72f71ed117d68930b9e195f7b6d0bc20fd861cd372ab4e3354/rerun_sdk-0.22.0-cp38-abi3-win_amd64.whl", hash = "sha256:5b904b561c8e061af15dd46be7e9ba7d29edaa207c9e54e3af0688b047bdb311", size = 42053438 },
 ]
 
 [[package]]
