@@ -15,12 +15,16 @@ videos = os.listdir(folder)
 
 rr.init("rerun_asset_video_auto_frames")
 rr.serve_web(ws_port=4321, web_port=10000)
+max_times = []
+
+for idx,video in enumerate(videos):
+    video_asset = rr.AssetVideo(path=folder + "/" + video)
+    max_times.append(video_asset.read_frame_timestamps_ns()[-1])
 
 for idx,video in enumerate(videos):
     video_asset = rr.AssetVideo(path=folder + "/" + video)
     rr.log("video" + str(idx), video_asset, static=True)
-    frame_timestamps_ns = video_asset.read_frame_timestamps_ns()
-    print(video_asset.read_frame_timestamps_ns())
+    frame_timestamps_ns = video_asset.read_frame_timestamps_ns() + (max(max_times) - max_times[idx])
     rr.send_columns(
         "video" + str(idx),
         # Note timeline values don't have to be the same as the video timestamps.
