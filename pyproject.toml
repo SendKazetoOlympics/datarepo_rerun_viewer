@@ -12,6 +12,5 @@ dependencies = [
     "python-dotenv>=1.0.1",
     "requests>=2.32.3",
     "rerun-sdk==0.22.0",
-    "torch>=2.5.1",
     "uuid>=1.30",
 ]
