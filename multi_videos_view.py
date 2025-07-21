@@ -9,30 +9,29 @@ parser.add_argument("--folder", type=str, help="Folder name")
 args = parser.parse_args()
 
 file_list = os.listdir(args.folder)
-
-videos = [f for f in file_list if f.lower().endswith('.mp4')]
-time_csv = np.loadtxt(os.path.join(args.folder, "recordings.csv"), delimiter=',', skiprows=1, dtype=str)
-starting_timestamps = {}
-for row in time_csv:
-    starting_timestamps[row[0]] = float(row[1])
+ips = [f.split('_')[0] for f in file_list if f.lower().endswith('.mp4')]
+timestamps = {}
+for ip in ips:
+    timestamps[ip] = np.loadtxt(os.path.join(args.folder, ip + "_timestamps.csv"))
+    
+min_time = min([np.min(timestamps[ip]) for ip in ips])
 
 rr.init("rerun_asset_video_auto_frames")
-rr.serve_web(ws_port=4321, web_port=10000)
+rr.serve_web(web_port=10000)
 
 
-for idx, video in enumerate(videos):
+for idx, ip in enumerate(ips):
     # Extract IP address from the video filename (assumes IP is before first '_')
-    ip_addr = video.split('_')[0]
-    video_asset = rr.AssetVideo(path=os.path.join(args.folder, video))
+    video_asset = rr.AssetVideo(path=os.path.join(args.folder, ip + "_video.mp4"))
     rr.log("video" + str(idx), video_asset, static=True)
-    # Use the IP address to get the starting timestamp
-    start_ts = starting_timestamps.get(ip_addr, 0)
-    frame_timestamps_ns = video_asset.read_frame_timestamps_ns() #+ start_ts
+    time_stamps = (timestamps[ip] - min_time)*1e9
+
+    # frame_timestamps_ns = video_asset.read_frame_timestamps_nanos()
     rr.send_columns(
         "video" + str(idx),
         # Note timeline values don't have to be the same as the video timestamps.
-        indexes=[rr.TimeNanosColumn("video_time", frame_timestamps_ns)],
-        columns=rr.VideoFrameReference.columns_nanoseconds(frame_timestamps_ns),
+        indexes=[rr.TimeColumn("video_time", duration=1e-9*time_stamps )],
+        columns=rr.VideoFrameReference.columns_nanos(time_stamps),
     )
 
 try:
