@@ -3,6 +3,7 @@ import numpy as np
 import time
 import argparse
 import os
+import matplotlib.pyplot as plt
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--folder", type=str, help="Folder name")
@@ -13,8 +14,19 @@ ips = [f.split('_')[0] for f in file_list if f.lower().endswith('.mp4')]
 timestamps = {}
 for ip in ips:
     timestamps[ip] = np.loadtxt(os.path.join(args.folder, ip + "_timestamps.csv"))
+#    timestamps[ip] -= timestamps[ip][0]  # Normalize to start from zero
+    
+print(timestamps)
     
 min_time = min([np.min(timestamps[ip]) for ip in ips])
+
+# plt.figure(figsize=(10, 6))
+# for ip in ips:
+#     plt.plot(timestamps[ip][:-1] - min_time , np.diff(timestamps[ip]) , label=ip)
+# # plt.ylim(0, 3e-2)
+# plt.xlim(5, 6)
+# plt.yscale('log')
+# plt.savefig('test')
 
 rr.init("rerun_asset_video_auto_frames")
 rr.serve_web(web_port=10000)
